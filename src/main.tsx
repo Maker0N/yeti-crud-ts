@@ -37,7 +37,7 @@ const Main: FC<MainProps> = (props) => {
     <main className="w-full p-5 text-sm font-mono bg-blue-200">
       <section>
         <article>Номер заявки: {props.currentCaseId}</article>
-        <article>Время получения заявки: {currentCase.date}</article>
+        <article className='mb-5'>Время получения заявки: {currentCase.date}</article>
         <article>Название фирмы: {currentCase.name}</article>
         <article>ФИО перевозчика: {currentCase.driverName}</article>
         <article>Телефон: {currentCase.phone}</article>

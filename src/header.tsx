@@ -16,7 +16,7 @@ const Header: FC = () => {
         ? <Link to="/edit" className="bg-gray-400 hover:bg-gray-400 px-3">
           Создать заявку
         </Link>
-        : <Link to="/form" className="bg-green-400 hover:bg-green-500 px-3">
+        : <Link to="/form" className="bg-green-500 hover:bg-green-700 px-3">
           Создать заявку
         </Link>}
       </div>

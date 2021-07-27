@@ -1,8 +1,8 @@
-import React, { useState, FC } from 'react'
-import { useDispatch } from 'react-redux'
-import { useLocation, Link } from 'react-router-dom'
-import { addCase, editCase } from './redux/mainReducer'
-import { CaseType } from './types/types'
+import React, { useState, FC } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, Link } from "react-router-dom";
+import { addCase, editCase } from "./redux/mainReducer";
+import { CaseType } from "./types/types";
 
 interface FormProps {
   base: Array<CaseType>;
@@ -16,9 +16,9 @@ const Form: FC<FormProps> = (props) => {
     (it) => it.id === props.currentCaseId
   );
 
-  let formOrEditObj
+  let formOrEditObj;
   pathname === "/form"
-    ? ( formOrEditObj = {
+    ? (formOrEditObj = {
         id:
           props.base.length === 0
             ? 1
@@ -54,7 +54,7 @@ const Form: FC<FormProps> = (props) => {
   }
 
   return (
-    <form action="#" className="w-full p-5 text-sm font-mono bg-blue-200">
+    <form className="w-full p-5 text-sm font-mono bg-blue-200">
       <div className="text-red-500">
         {pathname === "/edit" && "Редактирование заявки"}
       </div>
@@ -66,7 +66,11 @@ const Form: FC<FormProps> = (props) => {
         Название фирмы
         <input
           type="text"
-          className="block w-1/3 border p-1 mb-1 bg-white outline-none"
+          className={
+            form.name === ""
+              ? "block w-1/3 border border-red-500 p-1 mb-1 bg-white outline-none"
+              : "block w-1/3 border p-1 mb-1 bg-white outline-none"
+          }
           name="name"
           value={name}
           onChange={changeInput}
@@ -76,7 +80,11 @@ const Form: FC<FormProps> = (props) => {
         ФИО перевозчика
         <input
           type="text"
-          className="block w-1/3 border p-1 mb-1 bg-white outline-none"
+          className={
+            form.driverName === ""
+              ? "block w-1/3 border border-red-500 p-1 mb-1 bg-white outline-none"
+              : "block w-1/3 border p-1 mb-1 bg-white outline-none"
+          }
           name="driverName"
           value={driverName}
           onChange={changeInput}
@@ -86,7 +94,11 @@ const Form: FC<FormProps> = (props) => {
         Контактный телефон перевозчика
         <input
           type="number"
-          className="block w-1/3 border p-1 mb-1 bg-white outline-none"
+          className={
+            form.phone === ""
+              ? "block w-1/3 border border-red-500 p-1 mb-1 bg-white outline-none"
+              : "block w-1/3 border p-1 mb-1 bg-white outline-none"
+          }
           name="phone"
           value={phone}
           onChange={changeInput}
@@ -105,7 +117,11 @@ const Form: FC<FormProps> = (props) => {
         ATI код сети перевозчика
         <input
           type="number"
-          className="block w-1/3 border p-1 mb-1 bg-white outline-none"
+          className={
+            form.ati === ""
+              ? "block w-1/3 border border-red-500 p-1 mb-1 bg-white outline-none"
+              : "block w-1/3 border p-1 mb-1 bg-white outline-none"
+          }
           name="ati"
           value={ati}
           onChange={changeInput}
@@ -113,32 +129,77 @@ const Form: FC<FormProps> = (props) => {
       </label>
       <div className="flex justify-center my-10">
         {pathname === "/form" ? (
-          <Link to="/main">
+          <Link
+            to={
+              form.name === "" ||
+              form.driverName === "" ||
+              form.phone === "" ||
+              form.ati === ""
+                ? "/form"
+                : "/main"
+            }
+          >
             <button
               type="button"
-              className="border px-3 mx-3 bg-green-400 hover:bg-green-500"
+              className={
+                form.name === "" ||
+                form.driverName === "" ||
+                form.phone === "" ||
+                form.ati === ""
+                  ? "border px-3 mx-3 bg-gray-400"
+                  : "border px-3 mx-3 bg-green-400 hover:bg-green-500"
+              }
               onClick={(e) => {
-                dispatch(addCase(form));
-                setForm(() => ({
-                  ...form,
-                  date: currentTime(),
-                  name: "",
-                  driverName: "",
-                  phone: "",
-                  comments: "",
-                  ati: "",
-                }));
+                if (
+                  form.name !== "" &&
+                  form.driverName !== "" &&
+                  form.phone !== "" &&
+                  form.ati !== ""
+                ) {
+                  dispatch(addCase(form));
+                  setForm(() => ({
+                    ...form,
+                    date: currentTime(),
+                    name: "",
+                    driverName: "",
+                    phone: "",
+                    comments: "",
+                    ati: "",
+                  }));
+                }
               }}
             >
               Создать
             </button>
           </Link>
         ) : (
-          <Link to="/main">
+          <Link
+            to={
+              form.name === "" ||
+              form.driverName === "" ||
+              form.phone === "" ||
+              form.ati === ""
+                ? "/edit"
+                : "/main"
+            }
+          >
             <button
               type="button"
-              className="border px-3 mx-3 bg-green-400 hover:bg-green-500"
+              className={
+                form.name === "" ||
+                form.driverName === "" ||
+                form.phone === "" ||
+                form.ati === ""
+                  ? "border px-3 mx-3 bg-gray-400"
+                  : "border px-3 mx-3 bg-green-400 hover:bg-green-500"
+              }
               onClick={(e) => {
+                if (
+                  form.name !== "" &&
+                  form.driverName !== "" &&
+                  form.phone !== "" &&
+                  form.ati !== ""
+                ) {
                 dispatch(editCase(form));
                 setForm(() => ({
                   ...form,
@@ -149,7 +210,7 @@ const Form: FC<FormProps> = (props) => {
                   phone: "",
                   comments: "",
                   ati: "",
-                }));
+                }))};
               }}
             >
               Сохранить
@@ -161,4 +222,4 @@ const Form: FC<FormProps> = (props) => {
   );
 };
 
-export default Form
+export default Form;

@@ -22,32 +22,37 @@ const Auth: FC = () => {
 
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-green-700">
-      <form action="">
+      <form>
         <label htmlFor="" className="flex justify-center mb-3">
           Авторизация!
         </label>
         <input
           type="text"
-          className="block mb-3 px-1"
+          className="block mb-3 px-1 outline-none"
           name="login"
           value={logPass.login}
           onChange={onChangeHandler}
         />
         <input
           type="password"
-          className="block mb-3 px-1"
+          className="block mb-3 px-1 outline-none"
           name="pass"
           value={logPass.pass}
           onChange={onChangeHandler}
         />
         <Link to="/main" className="flex justify-center">
-          <input type="submit" className='px-1' value='Войти!' onClick={e => {
-            axios
-              .put("http://localhost:5000/login", logPass)
-              .then((res) => dispatch(isLogin(res.data)))
-              .catch((err) => console.log(err));
-              clearValue()
-          }}/>
+          <input
+            type="submit"
+            className="px-1"
+            value="Войти!"
+            onClick={(e) => {
+              axios
+                .put("http://localhost:5000/login", logPass)
+                .then((res) => dispatch(isLogin(res.data)))
+                .catch((err) => console.log(err));
+              clearValue();
+            }}
+          />
         </Link>
       </form>
     </div>
