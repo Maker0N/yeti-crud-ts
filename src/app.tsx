@@ -18,7 +18,9 @@ const App: FC = () => {
   return (
     <>
       {!isLogin ? (
-        <Route render={() => <Auth />} />
+        <div className='z-40'>
+          <Auth isLogin={isLogin} />
+        </div>
       ) : (
         <>
           <Header />

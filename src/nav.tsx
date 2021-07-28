@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import { currentCaseId } from "./redux/mainReducer";
 import { StateType } from "./types/types";
+import store from './redux/store'
 
 const Nav: FC<StateType> = (props) => {
   const dispatch = useDispatch();
@@ -16,10 +17,8 @@ const Nav: FC<StateType> = (props) => {
       {pathname === "/result"
         ? props.findArr.map((it) => {
             return (
-              <>
-                <Link to="/main">
+                <Link to="/main" key={it.id}>
                   <article
-                    key={it.id}
                     className={
                       it.id === props.currentCaseId
                         ? "border p-3 bg-blue-200 transition hover:bg-blue-300 transform translate-x-3 border-r-0 hover:scale-110"
@@ -35,14 +34,12 @@ const Nav: FC<StateType> = (props) => {
                     <div>{it.phone}</div>
                   </article>
                 </Link>
-              </>
             );
           })
         : props.base.map((it) => {
             return (
-              <Link to="/main">
+              <Link to="/main" key={it.id}>
                 <article
-                  key={it.id}
                   className={
                     it.id === props.currentCaseId
                       ? "border p-3 bg-blue-200 transition hover:bg-blue-300 transform translate-x-3 border-r-0 hover:scale-110"
@@ -50,7 +47,12 @@ const Nav: FC<StateType> = (props) => {
                   }
                   onClick={(e) => {
                     dispatch(currentCaseId(it.id));
-                    console.log(it.date);
+                    if (store) {
+                      localStorage.setItem(
+                        "localInitialState",
+                        JSON.stringify(store.getState().mainReducer)
+                      );
+                    }
                   }}
                 >
                   <div>{it.id}</div>

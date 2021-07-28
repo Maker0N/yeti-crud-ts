@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { isLogin } from './redux/authReducer'
 
-const Auth: FC = () => {
+interface AuthProps {
+  isLogin: boolean
+}
+
+const Auth: FC<AuthProps> = (props) => {
   const dispatch = useDispatch()
   const [logPass, setLogPass] = useState({
     login: "",
     pass: "",
   });
+  const [effect, setEffect] = useState(
+    "flex justify-center items-center w-screen h-screen bg-green-700"
+  );
 
   const onChangeHandler = (e): void => {
     const { name, value } = e.target
@@ -21,7 +28,9 @@ const Auth: FC = () => {
   }
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen bg-green-700">
+    <div
+      className={effect}
+    >
       <form>
         <label htmlFor="" className="flex justify-center mb-3">
           Авторизация!
@@ -40,7 +49,7 @@ const Auth: FC = () => {
           value={logPass.pass}
           onChange={onChangeHandler}
         />
-        <Link to="/main" className="flex justify-center">
+        <Link to='/main' className="flex justify-center">
           <input
             type="submit"
             className="px-1"
@@ -51,6 +60,9 @@ const Auth: FC = () => {
                 .then((res) => dispatch(isLogin(res.data)))
                 .catch((err) => console.log(err));
               clearValue();
+              setEffect(
+                "flex justify-center items-center w-screen h-screen bg-green-700 transition transform -translate-y-full"
+              )
             }}
           />
         </Link>

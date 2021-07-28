@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import { addCase, editCase } from "./redux/mainReducer";
 import { CaseType } from "./types/types";
+import store from './redux/store'
 
 interface FormProps {
   base: Array<CaseType>;
@@ -167,6 +168,12 @@ const Form: FC<FormProps> = (props) => {
                     ati: "",
                   }));
                 }
+                if (store) {
+                  localStorage.setItem(
+                    "localInitialState",
+                    JSON.stringify(store.getState().mainReducer)
+                  );
+                }
               }}
             >
               Создать
@@ -211,6 +218,12 @@ const Form: FC<FormProps> = (props) => {
                   comments: "",
                   ati: "",
                 }))};
+                if (store) {
+                  localStorage.setItem(
+                    "localInitialState",
+                    JSON.stringify(store.getState().mainReducer)
+                  );
+                }
               }}
             >
               Сохранить

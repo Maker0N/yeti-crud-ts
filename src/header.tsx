@@ -28,14 +28,15 @@ const Header: FC = () => {
             setRequest(e.target.value);
           }}
         />
-        <Link to="/result">
+        <Link to={request ? "/result" : '/main'}>
           <input
             type="submit"
             value="Найти"
             className="outline-none px-3"
-            onClick={(e) => {
-              dispatch(findCase(request));
-            }}
+            onClick={e => {
+              dispatch(findCase(request))
+            }
+            }
           />
         </Link>
       </div>

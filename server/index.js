@@ -14,7 +14,7 @@ app.use(
     parameterLimit: 50000,
   })
 );
-app.use(bodyParser.json({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "50mb", extended: true }))
 
 const admins = [{
   login: 'admin',
@@ -29,7 +29,6 @@ app.put('/login', (req, res) => {
     : isAuth = false
   )
   res.send(isAuth)
-  console.log(isAuth)
 })
 
 app.listen(PORT, () => console.log(`Server start on port: ${PORT}`, new Date()))

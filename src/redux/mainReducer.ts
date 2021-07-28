@@ -6,7 +6,16 @@ const initialState: StateType = {
   findArr: []
 }
 
-const mainReducer = (state = initialState, action: ActionTypes): StateType => {
+if (!localStorage.getItem('localInitialState')) {
+  localStorage.setItem('localInitialState', JSON.stringify(initialState))
+}
+const stringInitialState: any = localStorage.getItem("localInitialState")
+const localInitialState: StateType = JSON.parse(stringInitialState);
+
+const mainReducer = (
+  state = localInitialState,
+  action: ActionTypes
+): StateType => {
   switch (action.type) {
     case constActionTypes.ADD_CASE:
       return (state = {
@@ -77,7 +86,7 @@ const mainReducer = (state = initialState, action: ActionTypes): StateType => {
     default:
       return state;
   }
-}
+};
 
 export function addCase(payload: {}) {
   return { type: constActionTypes.ADD_CASE, payload };

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom'
 import { deleteCase } from "./redux/mainReducer";
 import { CaseType } from "./types/types";
+import store from './redux/store'
 
 interface MainProps {base: Array<CaseType>, currentCaseId: number | null}
 
@@ -30,7 +31,6 @@ const Main: FC<MainProps> = (props) => {
   let atiUrl: undefined | string
   if (props.base.length !== 0) {
     atiUrl = `https://ati.su/firms/${currentCase.ati}/info`;
-    console.log(atiUrl);
   }
 
   return (
@@ -55,6 +55,12 @@ const Main: FC<MainProps> = (props) => {
           onClick={(e) => {
             e.preventDefault();
             dispatch(deleteCase(currentCase.id));
+            if (store) {
+              localStorage.setItem(
+                "localInitialState",
+                JSON.stringify(store.getState().mainReducer)
+              );
+            }
           }}
         >
           Удалить
