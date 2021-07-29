@@ -15,14 +15,14 @@ const Main: FC<MainProps> = (props) => {
 
   if (props.base.length === 0) {
     return (
-      <main className="w-full p-5 text-sm font-mono bg-blue-200">
+      <main className="fixed inset-y-0 right-0 w-2/3 px-5 pt-20 text-sm font-mono bg-blue-200">
         База пуста.
       </main>
     );
   }
   if (typeof currentCase === "undefined") {
     return (
-      <main className="w-full p-5 text-sm font-mono bg-blue-200">
+      <main className="fixed inset-y-0 right-0 w-2/3 px-5 pt-20 text-sm font-mono bg-blue-200">
         Заявка № {props.currentCaseId} удалена.
       </main>
     );
@@ -34,7 +34,7 @@ const Main: FC<MainProps> = (props) => {
   }
 
   return (
-    <main className="w-full p-5 text-sm font-mono bg-blue-200">
+    <main className="fixed inset-y-0 right-0 w-2/3 px-5 pt-20 text-sm font-mono bg-blue-200">
       <section>
         <article>Номер заявки: {props.currentCaseId}</article>
         <article className='mb-5'>Время получения заявки: {currentCase.date}</article>

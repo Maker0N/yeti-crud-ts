@@ -55,7 +55,7 @@ const Form: FC<FormProps> = (props) => {
   }
 
   return (
-    <form className="w-full p-5 text-sm font-mono bg-blue-200">
+    <form className="fixed inset-y-0 right-0 w-2/3 px-5 pt-20 text-sm font-mono bg-blue-200">
       <div className="text-red-500">
         {pathname === "/edit" && "Редактирование заявки"}
       </div>
@@ -207,17 +207,18 @@ const Form: FC<FormProps> = (props) => {
                   form.phone !== "" &&
                   form.ati !== ""
                 ) {
-                dispatch(editCase(form));
-                setForm(() => ({
-                  ...form,
-                  id: "",
-                  date: currentTime(),
-                  name: "",
-                  driverName: "",
-                  phone: "",
-                  comments: "",
-                  ati: "",
-                }))};
+                  dispatch(editCase(form));
+                  setForm(() => ({
+                    ...form,
+                    id: "",
+                    date: currentTime(),
+                    name: "",
+                    driverName: "",
+                    phone: "",
+                    comments: "",
+                    ati: "",
+                  }));
+                }
                 if (store) {
                   localStorage.setItem(
                     "localInitialState",

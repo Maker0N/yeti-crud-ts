@@ -8,11 +8,17 @@ const initialState: AuthType = {
   isLogin: false,
 };
 
+if (!localStorage.getItem('auth'))
+localStorage.setItem('auth', JSON.stringify(initialState))
+
+const stringAuth: any = localStorage.getItem('auth')
+const localAuth: AuthType = JSON.parse(stringAuth)
+
 type ActionType = {
   type: typeof IS_LOGIN, payload: boolean
 }
 
-const authReducer = (state = initialState, action: ActionType): AuthType => {
+const authReducer = (state = localAuth, action: ActionType): AuthType => {
   switch (action.type) {
 
     case IS_LOGIN:

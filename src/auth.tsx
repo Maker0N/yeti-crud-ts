@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { isLogin } from './redux/authReducer'
+import store from './redux/store'
 
 interface AuthProps {
   isLogin: boolean
@@ -63,6 +64,13 @@ const Auth: FC<AuthProps> = (props) => {
               setEffect(
                 "flex justify-center items-center w-screen h-screen bg-green-700 transition transform -translate-y-full"
               )
+              setTimeout(() => {
+              localStorage.setItem('auth', JSON.stringify(store.getState().authReducer))
+              }, 2000)
+              setTimeout(() => {
+                localStorage.setItem('auth', JSON.stringify({ isLogin: false }))
+                dispatch(isLogin(false))
+              }, 300000)
             }}
           />
         </Link>

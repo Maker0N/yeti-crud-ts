@@ -18,52 +18,53 @@ const App: FC = () => {
   return (
     <>
       {!isLogin ? (
-        <div className='z-40'>
-          <Auth isLogin={isLogin} />
-        </div>
+        <Auth isLogin={isLogin} />
       ) : (
         <>
           <Header />
-          <div className="absolute flex inset-x-0 top-14">
-            <Route
-              render={() => (
-                <Nav
-                  base={base}
-                  currentCaseId={currentCaseId}
-                  findArr={findArr}
+          <div className="fixed flex h-screen w-full bg-blue-300">
+            <div className="flex overflow-y-auto overflow-x-hidden w-full">
+              <Route
+                render={() => (
+                  <Nav
+                    base={base}
+                    currentCaseId={currentCaseId}
+                    findArr={findArr}
+                  />
+                )}
+              />
+
+              <Switch>
+                <Route
+                  exact
+                  path="/main"
+                  render={() => (
+                    <Main base={base} currentCaseId={currentCaseId} />
+                  )}
                 />
-              )}
-            />
-            <Switch>
-              <Route
-                exact
-                path="/main"
-                render={() => (
-                  <Main base={base} currentCaseId={currentCaseId} />
-                )}
-              />
-              <Route
-                exact
-                path="/form"
-                render={() => (
-                  <Form base={base} currentCaseId={currentCaseId} />
-                )}
-              />
-              <Route
-                exact
-                path="/edit"
-                render={() => (
-                  <Form base={base} currentCaseId={currentCaseId} />
-                )}
-              />
-              <Route
-                exact
-                path="/result"
-                render={() => (
-                  <Main base={base} currentCaseId={currentCaseId} />
-                )}
-              />
-            </Switch>
+                <Route
+                  exact
+                  path="/result"
+                  render={() => (
+                    <Main base={base} currentCaseId={currentCaseId} />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/form"
+                  render={() => (
+                    <Form base={base} currentCaseId={currentCaseId} />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/edit"
+                  render={() => (
+                    <Form base={base} currentCaseId={currentCaseId} />
+                  )}
+                />
+              </Switch>
+            </div>
           </div>
         </>
       )}
